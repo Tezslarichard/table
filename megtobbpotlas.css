@@ -1,0 +1,29 @@
+table,td{
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+
+
+thead{
+    background-color:brown;
+    font-weight: bold;
+}
+
+table tbody tr:nth-child(even){
+    background-color: bisque;
+
+}
+
+table tbody tr:nth-child(odd){
+    background-color: aqua;
+}
+
+table tbody tr:hover{
+    background-color: aliceblue;
+}
+
+
+
+
