@@ -24,6 +24,8 @@ table tbody tr:hover{
     background-color: aliceblue;
 }
 
-
+.selected{
+    transform: scale(1.2);
+}
 
 
