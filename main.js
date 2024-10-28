@@ -96,4 +96,23 @@ for (const pers of array) {
     
 }
 
+
+const form = document.getElementById('form');
+
+form.addEventListener('submit',function(e){
+    const firstname1 = document.getElementById('firstname1');
+    const firstname2 = document.getElementById('firstname2');
+    const lastname = document.getElementById('lastname');
+    const married = document.getElementById('married');
+    const pet = document.getElementById('pet');
+    
+    const lastnamevalue = lastname.value;
+    e.preventDefault();
+    const firstname1value = firstname1.value;
+    let firstname2value = firstname2.value;
+    const marriedvalue = married.checked;
+    const petvalue = pet.value;
+
+})
+
     
