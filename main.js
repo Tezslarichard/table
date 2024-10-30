@@ -54,8 +54,48 @@ pet.innerHTML = "Állat";
 th_firstname1.colSpan = 2;
 
 
+rendertable();
 
-for (const pers of array) {
+
+const form = document.getElementById('form');
+
+form.addEventListener('submit',function(e){
+    tbody.innerHTML = "";
+    const firstname1 = document.getElementById('firstname1');
+    const firstname2 = document.getElementById('firstname2');
+    const lastname = document.getElementById('lastname');
+    const married = document.getElementById('married');
+    const pet = document.getElementById('pet');
+    
+    const lastnamevalue = lastname.value;
+    e.preventDefault();
+    const firstname1value = firstname1.value;
+    let firstname2value = firstname2.value;
+    const marriedvalue = married.checked;
+    const petvalue = pet.value;
+
+
+
+    if(firstname2value == "" ){
+        firstname2value = undefined;
+    }
+    if(validatefields(lastname,firstname1,pet)){
+        const newpers = {
+            lastname: lastnamevalue,
+            firstname1: firstname1value,
+            married: marriedvalue,
+            pet: petvalue
+        }
+        array.push(newpers);
+        rendertable();
+        
+    }
+})
+
+
+
+function rendertable(){
+    for (const pers of array) {
     const tr_body = document.createElement('tr');
 
     tr_body.addEventListener('click', function(e) {
@@ -94,25 +134,6 @@ for (const pers of array) {
     tr_body.appendChild(td_married);
     
     
+    }
 }
 
-
-const form = document.getElementById('form');
-
-form.addEventListener('submit',function(e){
-    const firstname1 = document.getElementById('firstname1');
-    const firstname2 = document.getElementById('firstname2');
-    const lastname = document.getElementById('lastname');
-    const married = document.getElementById('married');
-    const pet = document.getElementById('pet');
-    
-    const lastnamevalue = lastname.value;
-    e.preventDefault();
-    const firstname1value = firstname1.value;
-    let firstname2value = firstname2.value;
-    const marriedvalue = married.checked;
-    const petvalue = pet.value;
-
-})
-
-    
