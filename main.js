@@ -28,29 +28,23 @@ let array = [
     },
 ];
 
-const table = document.createElement("table");
-const thead = document.createElement("thead");
+const table = document.createElement("table");  
+const thead = document.createElement("thead");  
 const tbody = document.createElement("tbody");
 const tr = document.createElement("tr");
-const th_firstname1 = document.createElement("th");
-const th_lastname = document.createElement("th");
-const married = document.createElement("th");
-const pet = document.createElement("th");
+const th_firstname1 = automata("th", "Keresztnév",thead);
+const th_lastname = automata("th","Vezetéknév",thead);
+const married = automata("th","Házas?",thead);
+const pet = automata("th","állat",thead);
 
 document.body.appendChild(table);
 table.appendChild(thead);
 thead.appendChild(tr);
-tr.appendChild(th_lastname);
-tr.appendChild(th_firstname1);
-tr.appendChild(pet);
-tr.appendChild(married);
+
 table.appendChild(tbody);
 
 
-th_firstname1.innerHTML = "Keresztnév";
-th_lastname.innerHTML = "Vezetéknév";
-married.innerHTML = "Házas-e";
-pet.innerHTML = "Állat";
+
 th_firstname1.colSpan = 2;
 
 
@@ -91,7 +85,7 @@ form.addEventListener('submit',function(e){
         }
         array.push(newpers);
         rendertable();
-        
+        form.reset()
     }
 })
 
@@ -110,6 +104,8 @@ function rendertable(){
         console.log("click");
         e.currentTarget.classList.add('selected');
     });
+
+
     tbody.appendChild(tr_body);
     const td_lastname = document.createElement('td');
     tr_body.appendChild(td_lastname);
@@ -167,4 +163,23 @@ function validatefields(lasthtml,firsthtml,pethtml){
     }
 
     return result;
+}
+
+/**
+ * 
+ * @param {td|th} type 
+ * @param {string} tartalom 
+ * @param {HTMLTableRowElement} hely 
+ * @returns {automata}
+ */
+function automata(type,tartalom,hely){
+
+
+    const gep = document.createElement(type);
+    gep.innerHTML = tartalom;
+    hely.appendChild(gep);
+
+
+    return gep;
+
 }
