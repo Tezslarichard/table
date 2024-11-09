@@ -28,114 +28,16 @@ let array = [
     },
 ];
 
-const table = document.createElement("table");  
-const thead = document.createElement("thead");  
-const tbody = document.createElement("tbody");
-const tr = document.createElement("tr");
-const th_firstname1 = automata("th", "Keresztnév",thead);
-const th_lastname = automata("th","Vezetéknév",thead);
-const married = automata("th","Házas?",thead);
-const pet = automata("th","állat",thead);
-
-document.body.appendChild(table);
-table.appendChild(thead);
-thead.appendChild(tr);
-
-table.appendChild(tbody);
 
 
 
-th_firstname1.colSpan = 2;
 
+createHtmlElement("table","perstable", document.body);
+createHtmlElementWithParentId("thead","persthead","perstable");
+createHtmlElementWithParentId("tr","perstr","persthead");
+createHtmlElementWithParentId("tbody","perstbody","perstable");
 
-rendertable();
-
-
-const form = document.getElementById('form');
-
-form.addEventListener('submit',function(e){
-    
-    const firstname1 = document.getElementById('firstname1');
-    const firstname2 = document.getElementById('firstname2');
-    const lastname = document.getElementById('lastname');
-    const married = document.getElementById('married');
-    const pet = document.getElementById('pet');
-    
-    const lastnamevalue = lastname.value;
-    e.preventDefault();
-    const firstname1value = firstname1.value;
-    let firstname2value = firstname2.value;
-    const marriedvalue = married.checked;
-    const petvalue = pet.value;
-
-
-
-    if(firstname2value == "" ){
-        firstname2value = undefined;
-    }
-
-
-    
-        if(validatefields(lastname,firstname1,pet)){
-        const newpers = {
-            lastname: lastnamevalue,
-            firstname1: firstname1value,
-            married: marriedvalue,
-            pet: petvalue
-        }
-        array.push(newpers);
-        rendertable();
-        form.reset()
-    }
-})
-
-
-
-function rendertable(){
-    tbody.innerHTML = "";
-    for (const pers of array) {
-    const tr_body = document.createElement('tr');
-
-    tr_body.addEventListener('click', function(e) {
-        const selected_row = tbody.querySelector(".selected");
-        if (selected_row != undefined) {
-            selected_row.classList.remove('selected');
-        }
-        console.log("click");
-        e.currentTarget.classList.add('selected');
-    });
-
-
-    tbody.appendChild(tr_body);
-    const td_lastname = document.createElement('td');
-    tr_body.appendChild(td_lastname);
-    td_lastname.innerHTML = pers.lastname;
-    
-
-    const td_firstname1 = document.createElement('td');
-    td_firstname1.innerHTML = pers.firstname1;
-    tr_body.appendChild(td_firstname1);
-
-    if (pers.firstname2 === undefined) {
-        td_firstname1.colSpan = 2;
-        } else {
-            const td_firstname2 = document.createElement('td');
-            td_firstname2.innerHTML = pers.firstname2;
-            tr_body.appendChild(td_firstname2);
-        }
-    
-    const td_pet = document.createElement('td');
-    td_pet.innerHTML = pers.pet;
-    tr_body.appendChild(td_pet);
-
-
-    const td_married = document.createElement('td');
-    td_married.innerHTML = pers.married ? 'Igen' : 'Nem';
-    tr_body.appendChild(td_married);
-    
-    
-    }
-}
+rendertable(array);
 
 function validatefields(lasthtml,firsthtml,pethtml){
     let result = true
@@ -165,21 +67,45 @@ function validatefields(lasthtml,firsthtml,pethtml){
     return result;
 }
 
-/**
- * 
- * @param {td|th} type 
- * @param {string} tartalom 
- * @param {HTMLTableRowElement} hely 
- * @returns {automata}
- */
-function automata(type,tartalom,hely){
+
+const form = document.getElementById('form');
+form.addEventListener('submit',function(e){
+    e.preventDefault();
+    const firstname1 = document.getElementById('firstname1');
+    const firstname2 = document.getElementById('firstname2');
+    const lastname = document.getElementById('lastname');
+    const married = document.getElementById('married');
+    const pet = document.getElementById('pet');
+    const lastnamevalue = lastname.value;
 
 
-    const gep = document.createElement(type);
-    gep.innerHTML = tartalom;
-    hely.appendChild(gep);
+    const firstname1value = firstname1.value;
+    let firstname2value = firstname2.value;
+    const marriedvalue = married.checked;
+    const petvalue = pet.value;
+    
+    
 
 
-    return gep;
+    
+        if(validatefields(lastname,firstname1,pet)){
+            if(firstname2value == "" ){
+                    firstname2value = undefined;
+                }
 
-}
+        const newpers = {
+            lastname: lastnamevalue,
+            firstname1: firstname1value,
+            married: marriedvalue,
+            pet: petvalue
+        }
+        array.push(newpers);
+        console.log(array)
+        rendertable(array)
+        form.reset()
+    }
+})
+
+
+
+
