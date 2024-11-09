@@ -3,7 +3,7 @@
  * @param {'td'|'th'} type 
  * @param {string} tartalom 
  * @param {HTMLTableRowElement} hely 
- * @returns {automata}
+ * @returns {   HTMLElement}
  */
 function automata(type,tartalom,hely){
     const gep = document.createElement(type);
@@ -18,6 +18,7 @@ function automata(type,tartalom,hely){
  * @param {*} parentElement 
  */
 
+
 function createHtmlElement(tag,id,parentElement){
     const htmlelement = document.createElement(tag);
         htmlelement.id = id;
@@ -27,8 +28,8 @@ function createHtmlElement(tag,id,parentElement){
 
 function createHtmlElementWithParentId(tag,id,parentid){
     const htmlelemntwithparentid = document.getElementById(parentid);
-    if(htmlelemntwithparentid === undefined){
-        createHtmlElement(tag,id,parentElement);
+    if(htmlelemntwithparentid != undefined){
+        createHtmlElement(tag,id,htmlelemntwithparentid);
     }
 
 }
@@ -47,26 +48,26 @@ function renderTableHeader(){
 
 
 
-function rendertable(array){
-    const tbody = document.createElement("perstbody")
+function rendertable(persarray){
+    const tbody = document.getElementById("perstbody");
+    tbody.innerHTML = '';
 
-
-    for (const pers of array) {
+    for (const pers of persarray) {
         const tr_body = document.createElement('tr');
 
     
-    const lastname = automata("td",pers.lastname, tr_body)
-    const firstname1_tablecell = automata("td",pers.firstname1,tr_body)
+    automata("td",pers.lastname, tr_body)
+    const firstname1_cell = automata("td",pers.firstname1,tr_body)
 
     if (pers.firstname2 === undefined) {
-        firstname1_tablecell.colSpan = 2;
+        firstname1_cell.colSpan = 2;
         } else {
-            const firstname2 = automata("td",pers.firstname2,tr_body)
+            automata("td",pers.firstname2,tr_body)
         }
     
 
-    const married = automata("td", pers.married ? "igen" : "nem", tr_body)
-    const pet = automata("td", pers.pet, tr_body)
+        automata("td", pers.married ? "igen" : "nem", tr_body)
+        automata("td", pers.pet, tr_body)
 
 
         tbody.appendChild(tr_body);
@@ -83,6 +84,8 @@ function rendertable(array){
 
     }
 }
+renderTableHeader();
+rendertable(array);
 
 
 

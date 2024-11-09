@@ -37,6 +37,7 @@ createHtmlElementWithParentId("thead","persthead","perstable");
 createHtmlElementWithParentId("tr","perstr","persthead");
 createHtmlElementWithParentId("tbody","perstbody","perstable");
 
+renderTableHeader();
 rendertable(array);
 
 function validatefields(lasthtml,firsthtml,pethtml){
@@ -56,7 +57,7 @@ function validatefields(lasthtml,firsthtml,pethtml){
         result = false;
         
     }
-    if(pet.value === ""){
+    if(pethtml.value === ""){
         const parent_element = pethtml.parentElement;
         const error = parent_element.querySelector('.error');
         error.innerHTML = "Szép munka, de ki kell tölteni";
